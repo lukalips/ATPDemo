@@ -1,0 +1,98 @@
+﻿@using ATP.DataAccess.API
+@model IEnumerable<Player>
+@{
+    ViewData["Title"] = "ATP Demo App";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Top 10 Ranked Players
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Home" asp-action="ClearFavorites" class="btn btn-primary mx-2">Clear Favorites List</a>
+        </div>
+
+    </div>
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Rank
+                </th>
+                <th>
+                    Age
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    Add to Favorites
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Player obj in Model)
+            {
+                <tr>
+                    <td>
+                        <a onclick="ReloadPlayerDetails('@obj.PlayerId')" href="#">@(obj.FirstName + " " + obj.LastName)</a>
+                    </td>
+                    <td width="10%">
+                        @obj.Rank
+                    </td>
+                    <td width="10%">
+                        @obj.AgeAtRankDate
+                    </td>
+                    <td width="30%">
+                        @obj.CountryName
+                    </td>
+                    <td>
+                        <a asp-controller="Home" asp-action="AddToFavorites" asp-route-playerId="@obj.PlayerId"
+                       class="btn btn-primary mx-2"><i class="bi bi-heart-fill"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="container p-3">
+    <div class="row pt-6">
+        <div class="col-6">
+            <div id="PlayerDetail">
+                @await Component.InvokeAsync("PlayerDetail")
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="MyFavorites">
+                @await Component.InvokeAsync("MyFavorites")
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section Scripts
+{
+<script>
+        function ReloadPlayerDetails(playerId) {
+            $.ajax({
+            url: '@Url.Action("GetDetails", "Home")',
+            data: {id: playerId},
+            success: function (data) {
+                    $("#PlayerDetail").html(data);
+                }
+            })
+    }
+</script>
+}

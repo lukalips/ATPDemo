@@ -1,0 +1,23 @@
+﻿
+@model IEnumerable<FavoritePlayer>
+
+<h4>My Favorites</h4>
+
+@if (Model.Count() < 1 )
+{
+    <p>You have no favorites. Click on the hearts above to create your personal favorites list.</p>
+}
+else
+{
+    <ol>
+    @foreach(var obj in Model)
+    {
+        <li>
+            @(obj.FirstName + " " + obj.LastName)<a asp-controller="Home" asp-action="RemoveFavorite" asp-route-playerId="@obj.PlayerId"
+                       class="mx-2 bi-x-square-fill p-2 text-danger"><i class="class="bi bi-x-square-fill p-2 text-danger"></i></a>
+
+
+        </li>
+    }
+    </ol>
+}
