@@ -5,11 +5,48 @@
 }
 
 <div class="container p-3">
+
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @{bool firstItem = true;}
+            @foreach (Player obj in Model)
+            {
+                <div class="carousel-item @(firstItem == true?"active":"")" >
+                    <div class="row pt-4">
+                        <div class="col-1">
+                            <h2>#@obj.Rank</h2>
+                        </div>
+                        <div class="col-4">
+                            <h2>@(obj.FirstName + " " + obj.LastName)</h2>
+                        </div>
+                        <div class="col-4">
+                            <div><strong>Previous Rank: </strong>@obj.PrevRank</div>
+                            <div><strong>Country: </strong>@obj.CountryName</div>
+                            <div><strong>Events Played: </strong>@obj.NbrEventsPlayed</div>
+                            <div><strong>Next Best Points: </strong>@obj.NextBestPoints</div>
+                            <div><strong>Points Dropping </strong>@obj.PointsDropping</div>
+                        </div>
+                    </div>
+                </div>
+                {firstItem = false;}
+            }
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">
-                Top 10 Ranked Players
-            </h2>
+            <h4 class="text-primary">
+                Top Ranked Players
+            </h4>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Home" asp-action="ClearFavorites" class="btn btn-primary mx-2">Clear Favorites List</a>
@@ -21,11 +58,12 @@
         <thead>
             <tr>
                 <th>
-                    Name
-                </th>
-                <th>
                     Rank
                 </th>
+                <th>
+                    Name
+                </th>
+
                 <th>
                     Age
                 </th>
@@ -41,6 +79,9 @@
             @foreach (Player obj in Model)
             {
                 <tr>
+                    <td width="10%">
+                        @obj.Rank
+                    </td>
                     <td>
                         <a onclick="ReloadPlayerDetails('@obj.PlayerId')" href="#">@(obj.FirstName + " " + obj.LastName)</a>
                     </td>
