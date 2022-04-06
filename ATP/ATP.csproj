@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ATP.Models\ATP.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\media\alias\player-headshot\" />
+  </ItemGroup>
+
 </Project>

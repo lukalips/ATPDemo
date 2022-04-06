@@ -15,15 +15,18 @@
                         <div class="col-1">
                             <h2>#@obj.Rank</h2>
                         </div>
-                        <div class="col-4">
-                            <h2>@(obj.FirstName + " " + obj.LastName)</h2>
+                        <div class="col-1">
+                            @{string imageSource = obj.PlayerHeadshotImageCmsUrl.Replace("-/", "") + ".png";}
+                            <img src="@imageSource" class="img-fluid" alt="...">
+                        </div>
+
+                        <div class="col-2">
+                            <h3>@(obj.FirstName + " " + obj.LastName)</h3>
                         </div>
                         <div class="col-4">
                             <div><strong>Previous Rank: </strong>@obj.PrevRank</div>
                             <div><strong>Country: </strong>@obj.CountryName</div>
                             <div><strong>Events Played: </strong>@obj.NbrEventsPlayed</div>
-                            <div><strong>Next Best Points: </strong>@obj.NextBestPoints</div>
-                            <div><strong>Points Dropping </strong>@obj.PointsDropping</div>
                         </div>
                     </div>
                 </div>
